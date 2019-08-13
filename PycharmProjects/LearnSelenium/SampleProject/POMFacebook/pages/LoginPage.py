@@ -17,7 +17,7 @@ class LoginPage:
         self.recoverUsername_email_id = Locators.recoverUsername_email_id
         self.search_button_name = Locators.search_button_name
         self.NoSearchForEmail_error_xpath = Locators.NoSearchForEmail_error_xpath
-        self.ifItsNotYouButton_xpath = Locators.ifItsNotYouButton_xpath
+        self.ifItsNotYouButton_linkText = Locators.ifItsNotYouButton_linkText
 
         self.setting_logout_account_id = Locators.setting_logout_account_id
         self.logout_button_linkText = Locators.logout_button_linkText
@@ -58,7 +58,7 @@ class LoginPage:
         button.click()
 
     def if_its_not_you_button(self):
-        not_you_button = self.driver.find_element_by_xpath(self.ifItsNotYouButton_xpath)
+        not_you_button = self.driver.find_element_by_link_text(self.ifItsNotYouButton_linkText)
         not_you_button.click()
 
     def invalid_search_email(self):
