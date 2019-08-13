@@ -21,8 +21,8 @@ class TestLoginPageFacebook(unittest.TestCase):
         login = LoginPage(driver)
 
         login.login_button()
-        msg_invalid_username = login.invalid_login()
-        self.assertEqual(msg_invalid_username, 'אישורים שגויים\nשם משתמש או סיסמה לא תקינים')
+        msg_invalid_username = login.invalid_login_username()
+        self.assertEqual(msg_invalid_username, 'הדוא"ל או מספר הטלפון שהזנת לא מתאימים לחשבון כלשהו. הירשם/הירשמי לחשבון.')
         time.sleep(2)
 
     def test_02_login_invalid_password(self):
@@ -32,8 +32,8 @@ class TestLoginPageFacebook(unittest.TestCase):
 
         login.enter_username('amitmizrahi231055@gmail.com')
         login.login_button()
-        msg_invalid_password = login.invalid_login()
-        self.assertEqual(msg_invalid_password, 'אישורים שגויים\nשם משתמש או סיסמה לא תקינים')
+        msg_invalid_password = login.invalid_login_password()
+        self.assertEqual(msg_invalid_password, 'הסיסמה שהזנת שגויה. שכחת את הסיסמה?')
         time.sleep(2)
 
     def test_03_forgot_password(self):
@@ -49,12 +49,11 @@ class TestLoginPageFacebook(unittest.TestCase):
             login.search_button()
             time.sleep(2)
             if email == 'amitmizrahi231055@gmail.com':
-                login.ifItsNotYouButton()
+                login.if_its_not_you_button()
             elif email == 'rak':
                 msg_invalid_search_email = login.invalid_search_email()
                 self.assertEqual(msg_invalid_search_email,
                                  "אין תוצאות חיפוש\nהחיפוש שלך לא החזיר תוצאות. נסה/נסי שוב עם מידע אחר.")
-        time.sleep(2)
 
     def test_04_login_valid(self):
         driver = self.driver
@@ -71,8 +70,8 @@ class TestLoginPageFacebook(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls) -> None:
-        #cls.driver.close()
-        #cls.driver.quit()
+        cls.driver.close()
+        cls.driver.quit()
         print('Test Completed!')
 
 
