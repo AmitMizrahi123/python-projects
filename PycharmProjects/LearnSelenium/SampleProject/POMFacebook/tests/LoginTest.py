@@ -2,8 +2,10 @@ import time
 import unittest
 import HtmlTestRunner
 from selenium import webdriver
+from getpass import getpass
 from SampleProject.POMFacebook.pages.LoginPage import LoginPage
 
+oneMinWait = 1
 twoMinWait = 2
 chrome_driver_path = r'C:\Users\97250\PycharmProjects\LearnSelenium\driver\chromedriver.exe'
 facebook_url = 'https://www.facebook.com/'
@@ -11,7 +13,7 @@ msg_error_invalid_username = 'הדוא"ל או מספר הטלפון שהזנת 
 msg_error_invalid_password = 'הסיסמה שהזנת שגויה. שכחת את הסיסמה?'
 msg_error_forgot_password = "אין תוצאות חיפוש\nהחיפוש שלך לא החזיר תוצאות. נסה/נסי שוב עם מידע אחר."
 myEmail = input('Enter your email for facebook account: ')
-myPassword = input('Enter your password for facebook account: ')
+myPassword = getpass('Enter your password for facebook account: ')
 mere_email = 'rak'
 
 
@@ -44,26 +46,33 @@ class TestLoginPageFacebook(unittest.TestCase):
         self.assertEqual(msg_invalid_password, msg_error_invalid_password)
         time.sleep(twoMinWait)
 
-    def test_03_forgot_password(self):
+    def test_03_forgot_password_with_good_username(self):
         driver = self.driver
         driver.get(facebook_url)
         login = LoginPage(driver)
 
         login.forgot_password_button_click()
         time.sleep(twoMinWait)
-        lstEmail = [myEmail, mere_email]
-        for email in lstEmail:
-            login.recoverUsername(email)
-            login.search_button()
-            time.sleep(twoMinWait)
-            if email == myEmail:
-                login.if_its_not_you_button()
-                time.sleep(twoMinWait)
-            elif email == mere_email:
-                msg_invalid_search_email = login.invalid_search_email()
-                self.assertEqual(msg_invalid_search_email, msg_error_forgot_password)
+        login.recoverUsername(myEmail)
+        login.search_button()
+        time.sleep(twoMinWait)
+        login.if_its_not_you_button()
+        time.sleep(twoMinWait)
 
-    def test_04_login_valid(self):
+    def test_04_forgot_password_with_bad_username(self):
+        driver = self.driver
+        driver.get(facebook_url)
+        login = LoginPage(driver)
+
+        login.forgot_password_button_click()
+        time.sleep(twoMinWait)
+        login.recoverUsername(mere_email)
+        login.search_button()
+        time.sleep(twoMinWait)
+        msg_invalid_search_email = login.invalid_search_email()
+        self.assertEqual(msg_invalid_search_email, msg_error_forgot_password)
+
+    def test_05_login_valid(self):
         driver = self.driver
         driver.get(facebook_url)
         login = LoginPage(driver)
@@ -71,10 +80,13 @@ class TestLoginPageFacebook(unittest.TestCase):
         login.enter_username(myEmail)
         login.enter_password(myPassword)
         login.login_button()
-        time.sleep(2)
+        time.sleep(twoMinWait)
 
-        #login.setting_logout_account()
-        #login.logout_button()
+        login.remove_black_screen()
+        time.sleep(oneMinWait)
+        login.setting_logout_account()
+        time.sleep(oneMinWait)
+        login.logout_button()
 
     @classmethod
     def tearDownClass(cls) -> None:

@@ -19,8 +19,9 @@ class LoginPage:
         self.NoSearchForEmail_error_xpath = Locators.NoSearchForEmail_error_xpath
         self.ifItsNotYouButton_linkText = Locators.ifItsNotYouButton_linkText
 
+        self.removeBlackScreen_className = Locators.removeBlackScreen_className
         self.setting_logout_account_id = Locators.setting_logout_account_id
-        self.logout_button_linkText = Locators.logout_button_linkText
+        self.logoutAccount_button_linkText = Locators.logoutAccount_button_linkText
 
     def enter_username(self, username):
         username_textbox = self.driver.find_element_by_name(self.username_textbox_name)
@@ -65,10 +66,14 @@ class LoginPage:
         msg_error = self.driver.find_element_by_xpath(self.NoSearchForEmail_error_xpath).text
         return msg_error
 
+    def remove_black_screen(self):
+        black = self.driver.find_element_by_class_name(self.removeBlackScreen_className)
+        black.click()
+
     def setting_logout_account(self):
         button_logout = self.driver.find_element_by_id(self.setting_logout_account_id)
         button_logout.click()
 
     def logout_button(self):
-        logout_button = self.driver.find_element_by_link_text(self.logout_button_linkText)
-        logout_button.click()
+        exit_account = self.driver.find_element_by_link_text(self.logoutAccount_button_linkText)
+        exit_account.click()

@@ -18,5 +18,6 @@ class Locators:
     ifItsNotYouButton_linkText = 'לא את/ה?'
 
     # exit from account
+    removeBlackScreen_className = '_3ixn'
     setting_logout_account_id = 'userNavigationLabel'
-    logout_button_linkText = '‎Log Out‎'
+    logoutAccount_button_linkText = 'Log Out'
