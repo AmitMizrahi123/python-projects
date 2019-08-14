@@ -53,19 +53,24 @@ class TestLoginPageFacebook(unittest.TestCase):
 
         login.forgot_password_button_click()
         time.sleep(twoMinWait)
-        login.recoverUsername(myEmail)
-        login.search_button()
-        time.sleep(twoMinWait)
+
+        ### run this commands if you want to run just this test!! ###
+        #login.recoverUsername(myEmail)
+        #login.search_button()
+        #time.sleep(twoMinWait)
+
         login.if_its_not_you_button()
         time.sleep(twoMinWait)
 
     def test_04_forgot_password_with_bad_username(self):
         driver = self.driver
-        driver.get(facebook_url)
         login = LoginPage(driver)
 
-        login.forgot_password_button_click()
-        time.sleep(twoMinWait)
+        ### run this commands if you want to run just this test!! ###
+        #driver.get(facebook_url)
+        #login.forgot_password_button_click()
+        #time.sleep(twoMinWait)
+
         login.recoverUsername(mere_email)
         login.search_button()
         time.sleep(twoMinWait)
