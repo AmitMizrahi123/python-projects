@@ -3,7 +3,7 @@ certifi==2019.6.16
 chardet==3.0.4
 google-auth==1.6.3
 html-testRunner==1.1.2
-httplib2==0.13.1
+httplib2==0.18.0
 idna==2.8
 Jinja2==2.9.5
 MarkupSafe==1.1.1
